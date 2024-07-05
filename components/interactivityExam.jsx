@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 
 const InteractivityExam = ({ list }) => {
   const [word, setWord] = useState("");
-  const [newWord, setNewWord] = useState(word);
+  const [newWord, setNewWord] = useState(""); // --> removing the "word" dependency to store the uppercase word
 
   useEffect(() => {
-    setWord((prevName) => prevName.toUpperCase());
-  }, []);
+    setNewWord(word.toUpperCase()); // --> changing the word to uppercase
+  }, [word]); // --> useEffect runs whenever word changes
 
   const handleNameChange = (event) => {
     setWord(event.target.value);
@@ -19,12 +19,14 @@ const InteractivityExam = ({ list }) => {
   };
 
   const getWord = () => {
-    setWord(word + "t");
+    setWord(word + "t"); // --> I was confused here, to change the word to "t" lol
   };
 
   return (
     <div>
-      {word && <div>{word}</div>}
+      {newWord.length > 3 && <div>{newWord}</div>}
+      {""}
+      {/* --> changed "word" to "newWord" so it'll display the uppercase */}
       <div className="">
         <form onSubmit={handleSubmit} className="">
           <div className="p-2 bg-green-200">
